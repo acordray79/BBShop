@@ -12,11 +12,17 @@ namespace BBShop.Service
     {
         private readonly string _userIDStr;
         private readonly Guid _userID;
-
+        private readonly bool _isAdmin;
         public CustomerService(Guid userID)
         {
             _userID = userID;
             _userIDStr = userID.ToString();
+        }
+        public CustomerService(Guid userID, bool isAdmin)
+        {
+            _userID = userID;
+            _userIDStr = userID.ToString();
+            _isAdmin = isAdmin;
         }
         public bool CreateCustomer(CustomerCreate model)
         {
@@ -48,6 +54,7 @@ namespace BBShop.Service
                 var query =
                     ctx
                         .Users
+                         .Where(x => x.Id == _userIDStr || _isAdmin)
                         .Select(
                             e =>
                                 new CustomerList
@@ -68,6 +75,7 @@ namespace BBShop.Service
                 return query.ToArray();
             }
         }
+       
         public CustomerDetail GetCustomerByID(string customerID)
         {
             using (var ctx = new ApplicationDbContext())

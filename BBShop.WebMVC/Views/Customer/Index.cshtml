@@ -4,29 +4,31 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2 id="title">Customers</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@*
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+*@
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+        <th class="lomod">
+            @Html.DisplayNameFor(model => model.FullName)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.StreetAddress)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th>
+        </th>*@
+        <th class="lomod">
             @Html.DisplayNameFor(model => model.State)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.ZipCode)
         </th>
         <th>
@@ -34,48 +36,61 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CreditCard)
-        </th>
-        <th>
+        </th>*@
+        <th class="lomod">
             @Html.DisplayNameFor(model => model.Email)
         </th>
-        <th></th>
+        
+            <th></th>
+        
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StreetAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.State)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ZipCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telephone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreditCard)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CustomerID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CustomerID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CustomerID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="lomod">
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>*@
+            @*<td>
+                @Html.DisplayFor(modelItem => item.StreetAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>*@
+            <td class="lomod">
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.ZipCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telephone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreditCard)
+            </td>*@
+            <td class="lomod">
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td id="linkclickers">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CustomerID }) 
+                @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                {
+                <span>|</span>
+                @Html.ActionLink("Details", "Details", new { id = item.CustomerID })
+                }
+                @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                {
+                    <span>|</span>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CustomerID })
+                }
+                
+            </td>
+
+        </tr>
+    }
 
 </table>

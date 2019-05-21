@@ -34,7 +34,7 @@ namespace BBShop.WebMVC
                 //Here we create a Admin super user who will maintain the website                  
 
                 var user = new ApplicationUser();
-                user.UserName = "panda";
+                user.UserName = "panda@panda.panda";
                 user.Email = "panda@panda.panda";
 
                 string userPWD = "Test1!";
@@ -49,7 +49,7 @@ namespace BBShop.WebMVC
                 }
             }
 
-            // creating Creating Manager role    
+            // creating Creating Customer role    
             if (!roleManager.RoleExists("Customer"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();

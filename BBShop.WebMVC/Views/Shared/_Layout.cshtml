@@ -17,15 +17,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Amanda's Shop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Amanda's Shop", "Index", "Product", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    @*Name     View   Controller ID*@
                     <li>@Html.ActionLink("Product", "Index", "Product")</li>
-                    <li>@Html.ActionLink("Customer", "Index", "Customer")</li>
+                    @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Customers", "Index", "Customer")</li>
+                    }
+                    @if (ViewContext.HttpContext.User.IsInRole("Customer"))
+                    {
+                        <li>@Html.ActionLink("My Details", "Index", "Customer")</li>
+                    }
                     <li>@Html.ActionLink("Transaction", "Index", "Transaction")</li>
                     @*<li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -33,9 +41,9 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        @*<hr />*@
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p id="footer">&copy; @DateTime.Now.Year - My Blue Badge Project</p>
         </footer>
     </div>
 

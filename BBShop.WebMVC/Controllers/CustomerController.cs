@@ -12,14 +12,15 @@ namespace BBShop.WebMVC.Controllers
     public class CustomerController : Controller
     {
         // GET: Customer
-        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var service = CreateCustomerService();
+
             var model = service.GetCustomer();
             return View(model);
         }
         // GET: Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -123,7 +124,8 @@ namespace BBShop.WebMVC.Controllers
         private CustomerService CreateCustomerService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            var service = new CustomerService(userId);
+            var isAdmin = User.IsInRole("Admin");
+            var service = new CustomerService(userId, isAdmin);
             return service;
         }
     }

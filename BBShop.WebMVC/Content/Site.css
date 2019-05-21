@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image: url("asset/Old-Paper-Texture.jpg");
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +22,38 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+/* Centering the footer */
+#footer{
+    text-align: center;
+    color: black;
+}
+
+/* Changing coloring for better visual on verbage */
+
+.lomod{
+    color: black;
+    font-weight: bold;
+}
+
+/* Getting the title more visible */
+#title{
+    color: black;
+}
+
+/* Changing more colors for visibility */
+#linkclickers {
+    color: black;
+    font-weight: bold; 
+}
+
+/* unvisited link */
+a {
+    color: black;
+}
+
+.table {
+    background-color: rgb(242, 180, 128, 0.4);
+    border: 1px solid white;
 }
