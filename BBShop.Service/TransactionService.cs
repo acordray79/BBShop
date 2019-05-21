@@ -10,6 +10,20 @@ namespace BBShop.Service
 {
     public class TransactionService
     {
+        private readonly string _userIDStr;
+        private readonly Guid _userID;
+        private readonly bool _isAdmin;
+        public TransactionService(Guid userID)
+        {
+            _userID = userID;
+            _userIDStr = userID.ToString();
+        }
+        public TransactionService(Guid userID, bool isAdmin)
+        {
+            _userID = userID;
+            _userIDStr = userID.ToString();
+            _isAdmin = isAdmin;
+        }
         public bool CreateTrans(TransactionCreate model)
         {
             var entity =
@@ -32,6 +46,7 @@ namespace BBShop.Service
                 var query =
                     ctx
                         .BBShopTransactions
+                        .Where(x => _isAdmin || x.CustomerID == _userIDStr)
                         .Select(
                             e =>
                                 new TransactionList

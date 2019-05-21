@@ -24,28 +24,29 @@ textarea {
     max-width: 280px;
 }
 
+
 /* Centering the footer */
-#footer{
+#footer {
     text-align: center;
     color: black;
 }
 
 /* Changing coloring for better visual on verbage */
 
-.lomod{
+.table {
     color: black;
     font-weight: bold;
 }
 
 /* Getting the title more visible */
-#title{
+.title {
     color: black;
 }
 
 /* Changing more colors for visibility */
 #linkclickers {
     color: black;
-    font-weight: bold; 
+    font-weight: bold;
 }
 
 /* unvisited link */
@@ -55,5 +56,36 @@ a {
 
 .table {
     background-color: rgb(242, 180, 128, 0.4);
-    border: 1px solid white;
+    border-top: 0px !important;
+    border-radius: 15px;
 }
+
+table td {
+    border: none !important;
+}
+
+table tr {
+    border: none !important;
+}
+table th{
+    border: none !important;
+}
+.dl-horizontal {
+    color: black;
+}
+
+.form-group {
+    color: black;
+}
+
+.navbar-inverse {
+    background-color: #381c09b0;
+    border-color: #000000e0;
+}
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #f1af5b;
+    }
+    .navbar-inverse .navbar-brand {
+        color: #f1af5b;
+    }

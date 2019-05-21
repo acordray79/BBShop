@@ -19,6 +19,7 @@ namespace BBShop.WebMVC.Controllers
             return View(model);
         }
         // GET: Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -43,6 +44,7 @@ namespace BBShop.WebMVC.Controllers
 
             return View(model);
         }
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int id)
         {
             var svc = CreateProductService();
@@ -50,6 +52,7 @@ namespace BBShop.WebMVC.Controllers
 
             return View(model);
         }
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             var service = CreateProductService();
@@ -83,6 +86,7 @@ namespace BBShop.WebMVC.Controllers
             ModelState.AddModelError("", "Your note could not be updated.");
             return View(model);
         }
+        [Authorize(Roles = "Admin")]
         [ActionName("Delete")]
         public ActionResult Delete(int id)
         {
@@ -103,7 +107,11 @@ namespace BBShop.WebMVC.Controllers
         }
         private ProductService CreateProductService()
         {
-            var userId = Guid.Parse(User.Identity.GetUserId());
+            Guid userId;
+            if (User.Identity.GetUserId() == null)
+                userId = new Guid("00000000-0000-0000-0000-000000000000");
+            else
+                userId = Guid.Parse(User.Identity.GetUserId());
             var service = new ProductService(userId);
             return service;
         }

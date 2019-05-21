@@ -11,21 +11,25 @@ namespace BBShop.WebMVC.Controllers
 {
     public class TransactionController : Controller
     {
-        TransactionService _service = new TransactionService();
+        CustomerService _custSvc;
+        ProductService _prodSvc;
+        TransactionService _tranSvc;
         // GET: Transaction
         public ActionResult Index()
         {
-            var model = _service.GetTrans();
+            var service = GetServices();
+
+            var model = service.GetTrans();
             return View(model);
         }
         // GET: Transaction/Create
-        public ActionResult Create()
+         public ActionResult Create()
         {
-            ProductService prodSvc;
-            CustomerService custSvc;
-            ViewInfo(out prodSvc, out custSvc);
-            ViewBag.CustomerID = new SelectList(custSvc.GetCustomer(), "CustomerID", "FullName");
-            ViewBag.ProductID = new SelectList(prodSvc.GetProducts(), "ProductID", "ProductName");
+            _tranSvc = GetServices();
+            _custSvc = GetCustomerService();
+            _prodSvc = GetProductService();
+            ViewBag.CustomerID = new SelectList(_custSvc.GetCustomer(), "CustomerID", "FullName");
+            ViewBag.ProductID = new SelectList(_prodSvc.GetProducts(), "ProductID", "ProductName");
             return View();
         }
 
@@ -36,8 +40,8 @@ namespace BBShop.WebMVC.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-
-            if (_service.CreateTrans(model))
+            _tranSvc = GetServices();
+            if (_tranSvc.CreateTrans(model))
             {
                 TempData["SaveResult"] = "Your transaction was created.";
                 return RedirectToAction("Index");
@@ -47,15 +51,19 @@ namespace BBShop.WebMVC.Controllers
 
             return View(model);
         }
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int id)
         {
-            var model = _service.GetTransByID(id);
+            _tranSvc = GetServices();
+            var model = _tranSvc.GetTransByID(id);
 
             return View(model);
         }
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
-            var detail = _service.GetTransByID(id);
+            _tranSvc = GetServices();
+            var detail = _tranSvc.GetTransByID(id);
             var model =
                 new TransactionUpdate
                 {
@@ -63,11 +71,10 @@ namespace BBShop.WebMVC.Controllers
                     FullName = detail.FullName,
                     ProductName = detail.ProductName
                 };
-            ProductService prodSvc;
-            CustomerService custSvc;
-            ViewInfo(out prodSvc, out custSvc);
-            ViewBag.CustomerID = new SelectList(custSvc.GetCustomer(), "CustomerID", "FullName");
-            ViewBag.ProductID = new SelectList(prodSvc.GetProducts(), "ProductID", "ProductName");
+            _prodSvc = GetProductService();
+            _custSvc = GetCustomerService();
+            ViewBag.CustomerID = new SelectList(_custSvc.GetCustomer(), "CustomerID", "FullName");
+            ViewBag.ProductID = new SelectList(_prodSvc.GetProducts(), "ProductID", "ProductName");
             return View(model);
         }
         [HttpPost]
@@ -81,7 +88,8 @@ namespace BBShop.WebMVC.Controllers
                 ModelState.AddModelError("", "Id Mismatch");
                 return View(model);
             }
-            if (_service.UpdateTrans(model))
+            _tranSvc = GetServices();
+            if (_tranSvc.UpdateTrans(model))
             {
                 TempData["SaveResult"] = "Your transaction was updated.";
                 return RedirectToAction("Index");
@@ -89,26 +97,48 @@ namespace BBShop.WebMVC.Controllers
             ModelState.AddModelError("", "Your transaction could not be updated.");
             return View(model);
         }
+
+        [Authorize(Roles = "Admin")]
         [ActionName("Delete")]
         public ActionResult Delete(int id)
         {
-            var model = _service.GetTransByID(id);
+            _tranSvc = GetServices();
+            var model = _tranSvc.GetTransByID(id);
 
             return View(model);
         }
+
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeletePost(int id)
         {
-            _service.DeleteTrans(id);
+            _tranSvc = GetServices();
+            _tranSvc.DeleteTrans(id);
             TempData["SaveResult"] = "Your transaction was deleted";
             return RedirectToAction("Index");
         }
-        private void ViewInfo(out ProductService prodSvc, out CustomerService custSvc)
+
+        private TransactionService GetServices()
         {
-            prodSvc = new ProductService(Guid.Parse(User.Identity.GetUserId()));
-            custSvc = new CustomerService(Guid.Parse(User.Identity.GetUserId()));
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var isAdmin = User.IsInRole("Admin");
+            var _tranSvc = new TransactionService(userId, isAdmin);
+            return _tranSvc;
+        }
+        private CustomerService GetCustomerService()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            
+            var serviceCust = new CustomerService(userId);
+            return serviceCust;
+        }
+        private ProductService GetProductService()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+
+            var serviceProd = new ProductService(userId);
+            return serviceProd;
         }
     }
 }

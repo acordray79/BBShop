@@ -41,7 +41,6 @@ namespace BBShop.Service
                 var query =
                     ctx
                         .BBShopProducts
-                        .Where(e => e.OwnerID == _userID)
                         .Select(
                             e =>
                                 new ProductList

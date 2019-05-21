@@ -54,7 +54,7 @@ namespace BBShop.Service
                 var query =
                     ctx
                         .Users
-                         .Where(x => x.Id == _userIDStr || _isAdmin)
+                        .Where(x => _isAdmin || x.Id == _userIDStr)
                         .Select(
                             e =>
                                 new CustomerList
