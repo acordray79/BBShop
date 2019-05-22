@@ -15,6 +15,7 @@ namespace BBShop.WebMVC.Controllers
         ProductService _prodSvc;
         TransactionService _tranSvc;
         // GET: Transaction
+        [Authorize]
         public ActionResult Index()
         {
             var service = GetServices();
@@ -23,6 +24,7 @@ namespace BBShop.WebMVC.Controllers
             return View(model);
         }
         // GET: Transaction/Create
+        [Authorize]
          public ActionResult Create()
         {
             _tranSvc = GetServices();

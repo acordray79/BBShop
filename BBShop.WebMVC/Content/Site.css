@@ -67,9 +67,11 @@ table td {
 table tr {
     border: none !important;
 }
-table th{
+
+table th {
     border: none !important;
 }
+
 .dl-horizontal {
     color: black;
 }
@@ -86,6 +88,16 @@ table th{
     .navbar-inverse .navbar-nav > li > a {
         color: #f1af5b;
     }
+
     .navbar-inverse .navbar-brand {
         color: #f1af5b;
     }
+.jumbotron{
+    background: url("asset/tenor.gif") no-repeat center;
+    height: 300px;
+    margin: 25px 0px 0px 0px;
+}
+#cream {
+    text-align: center;
+    color: #4c2306;
+}

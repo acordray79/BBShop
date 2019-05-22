@@ -12,11 +12,11 @@ namespace BBShop.Model.Product
         public int ProductID { get; set; }
 
         public Guid OwnerID { get; set; }
-
+        [Display(Name = "Product Name")]
         public string ProductName { get; set; }
 
         public decimal Price { get; set; }
-
+        [Display(Name = "Product Quantity")]
         public int ProductQuantity { get; set; }
 
         [Display(Name = "Created")]

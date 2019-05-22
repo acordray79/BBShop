@@ -13,6 +13,7 @@ namespace BBShop.Model.Product
         [Display(Name = "Product Name")]
         public string ProductName { get; set; }
         public decimal Price { get; set; }
+        [Display(Name = "Product Quantity")]
         public int ProductQuantity { get; set; }
         public DateTimeOffset CreatedUtc { get; set; }
     }
