@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBShop.Service", "BBShop.Se
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBShop.Test", "BBShop.Test\BBShop.Test.csproj", "{033F425A-E32D-480E-AE18-783889D52A0A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBShop.WebApi", "BBShop.WebApi\BBShop.WebApi.csproj", "{2A472A62-A6AC-481F-88AF-7CC0098410B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{033F425A-E32D-480E-AE18-783889D52A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{033F425A-E32D-480E-AE18-783889D52A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{033F425A-E32D-480E-AE18-783889D52A0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A472A62-A6AC-481F-88AF-7CC0098410B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A472A62-A6AC-481F-88AF-7CC0098410B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A472A62-A6AC-481F-88AF-7CC0098410B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A472A62-A6AC-481F-88AF-7CC0098410B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
