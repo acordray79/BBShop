@@ -14,6 +14,10 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BBShop.WebMVC.Controllers
 {
+#if !DEBUG
+     [RequireHttps]
+
+#endif
     [Authorize]
     public class AccountController : Controller
     {
